@@ -1,5 +1,5 @@
 const virtex = (prefix, pushname) => {
-	return `Regras
+	return `Hp Regras
 
 
 
