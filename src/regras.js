@@ -1,10 +1,10 @@
 
+const virtex = (prefix, pushname) => {
+	return `regras do grupo
 
-const regras = (prefix, pushname) => {
 
-	return `regras 
-  
-  ㅤㅤㅤ   𝗥𝗘𝗚𝗥𝗔𝗦 
+
+         𝗥𝗘𝗚𝗥𝗔𝗦 
 
 ㅤㅤㅤ [ 𝙋𝙧𝙤𝙞𝙗𝙞𝙙𝙤 ]
 
@@ -17,8 +17,12 @@ const regras = (prefix, pushname) => {
 ❌ _Flood/spam (Links ou figuras);_
 
 *𝘙𝘦𝘨𝘳𝘢𝘴 𝘱𝘰𝘥𝘦𝘮 𝘴𝘰𝘧𝘳𝘦𝘳 𝘢𝘭𝘵𝘦𝘳𝘢𝘤𝘰𝘦𝘴 𝘴𝘦𝘮 𝘢𝘷𝘪𝘴𝘰 𝘱𝘳𝘦𝘷𝘪𝘰🐊*
+
   
+
   *🐊Cuidado com o BAN membro comum.🐊*
+
 }
 
 exports.regras = regras
+ 
