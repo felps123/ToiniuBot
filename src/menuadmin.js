@@ -2,7 +2,7 @@ const menuadmin = (prefix, pushname) => {
  return `SAALVEE aqui e o menu dos admins
  _obs para o bot executar esses comandos e nescessario dar adm para o bot_
  
- ◪ *COMANDO DOS ADMINS*
+ ◪ *🐊COMANDO DOS ADMINS🐊*
  │
  ├─ ❏ ${prefix}opengc
  ├─ ❏ ${prefix}closegc
