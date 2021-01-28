@@ -1487,7 +1487,7 @@ case 'timer':
 					var gh = body.slice(11)
 					var teks1 = gh.split("|")[0];
 					var teks2 = gh.split("|")[1];
-					if (args.length < 1) return reply(`onde está o texto? exemplo ${prefix}logowolf Toin|BOT`)
+					if (args.length < 1) return reply(`onde está o texto? exemplo ${prefix}logowolf Filipe|BOT`)
                                         if (!isUser) return reply(mess.only.daftarB)
 					reply(mess.wait)
 					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=wolflogo2&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
@@ -1505,7 +1505,7 @@ case 'timer':
 					var gh = body.slice(7)
 					var gbl1 = gh.split("|")[0];
 					var gbl2 = gh.split("|")[1];
-					if (args.length < 1) return reply(`Cadê o texto, hum\nExemplo: ${prefix}phlogo |Toin|BOT`)
+					if (args.length < 1) return reply(`Cadê o texto, hum\nExemplo: ${prefix}phlogo |Filipe|BOT`)
 					reply(mess.wait)
 					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/textpro?theme=pornhub&text1=${gbl1}&text2=${gbl2}`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
@@ -1736,7 +1736,7 @@ case 'timer':
                                 case 'neonlogo':
                                         var gh = body.slice(9)
                                         var teks1 = gh.split("|")[0];
-                                        if (args.length < 1) return reply(`onde está o texto hum\nExemplo: ${prefix}neonlogo ToinBOT`)
+                                        if (args.length < 1) return reply(`onde está o texto hum\nExemplo: ${prefix}neonlogo FilipeBOT`)
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_light&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
@@ -1745,7 +1745,7 @@ case 'timer':
                                 case 'neonlogo2':
                                         var gh = body.slice(10)
                                         teks1 = gh.split("|")[0];
-                                        if (args.length < 1) return reply(`onde está o texto hum\nExemplo: ${prefix}neonlogo2 ToinBOT`)
+                                        if (args.length < 1) return reply(`onde está o texto hum\nExemplo: ${prefix}neonlogo2 FilipeBOT`)
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_technology&text=${text1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
@@ -1755,7 +1755,7 @@ case 'timer':
                                         var gh = body.slice(9)
                                         var teks1 = gh.split("|")[0];
                                         var teks2 = gh.split("|")[1];
-                                        if (args.length < 1) return reply(`teksnya mana um\nContoh: ${prefix}lionlogo Toin|BOT`)
+                                        if (args.length < 1) return reply(`teksnya mana um\nContoh: ${prefix}lionlogo Filipe|BOT`)
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=lionlogo&text1=${text1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
@@ -1770,7 +1770,7 @@ case 'timer':
                                 case 'jokerlogo':
                                         var gh = body.slice(10)
                                         var teks1 = gh.split("|")[0];
-                                        if (args.length < 1) return reply(`onde está o texto um \nExemplo: ${prefix}jokerlogo ToinBOT`)
+                                        if (args.length < 1) return reply(`onde está o texto um \nExemplo: ${prefix}jokerlogo FilipeBOT`)
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=jokerlogo&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
