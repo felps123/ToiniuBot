@@ -1,6 +1,7 @@
 
 const virtex = (prefix, pushname) => {
-	return `regras do grupo
+	return `regras
+
 
 
 
