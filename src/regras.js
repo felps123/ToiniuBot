@@ -1,4 +1,3 @@
-
 const regras = (prefix, pushname) => {
 	return `regras
 
@@ -7,7 +6,7 @@ const regras = (prefix, pushname) => {
 
          '𝗥𝗘𝗚𝗥𝗔𝗦'
 
-ㅤㅤㅤ [ 𝙋𝙧𝙤𝙞𝙗𝙞𝙙𝙤 ]
+ㅤㅤㅤ '[ 𝙋𝙧𝙤𝙞𝙗𝙞𝙙𝙤 ]'
 
 '❌ _Ofensas,Discriminação,preconceito;_'
 
@@ -22,7 +21,6 @@ const regras = (prefix, pushname) => {
   
 
   '🐊Cuidado com o BAN membro comum.🐊'
-
 }
 
 exports.regras = regras
