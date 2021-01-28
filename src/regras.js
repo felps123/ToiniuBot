@@ -1,5 +1,5 @@
 
-const virtex = (prefix, pushname) => {
+const regras = (prefix, pushname) => {
 	return `regras
 
 
