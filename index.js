@@ -1027,14 +1027,14 @@ case 'timer':
 					if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('A marca-alvo que você quer chutar!')
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 					if (mentioned.length > 1) {
-						teks = 'Pedidos recebidos, emitidos :\n'
+						teks = 'Sí Fud** KKK, da próxima leia as regras! :\n'
 						for (let _ of mentioned) {
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
 						client.groupRemove(from, mentioned)
 					} else {
-						mentions(`Pedidos recebidos, emitidos : @${mentioned[0].split('@')[0]}`, mentioned, true)
+						mentions(`Sí Fud** KKK, da próxima leia as regras! : @${mentioned[0].split('@')[0]}`, mentioned, true)
 						client.groupRemove(from, mentioned)
 					client.sendMessage(mentioned, 'Tomonucu kskst', text)
 					}
@@ -1274,7 +1274,7 @@ case 'timer':
                 play = body.slice(5)
                 anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?q=${play}&apikey=apivinz`)
                if (anu.error) return reply(anu.error)
-                 infomp3 = `*Canção encontrada!!!*\nJudul : ${anu.result.title}\nFonte : ${anu.result.source}\nTamanho : ${anu.result.size}\n\n*ESPERE ENVIANDO POR FAVOR, NÃO SPAM YA PAI*`
+                 infomp3 = `*MÚSICA encontrada!!!*\nTítulo : ${anu.result.title}\nFonte : ${anu.result.source}\nTamanho : ${anu.result.size}\n\n*ESPERE, ENVIANDO🔊🎶🏄🏻‍♂️🔥*`
                 buffer = await getBuffer(anu.result.thumbnail)
                 lagu = await getBuffer(anu.result.url_audio)
                 client.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
@@ -1309,7 +1309,7 @@ case 'timer':
 					break
                                   case 'daftar':
 					client.updatePresence(from, Presence.composing)
-					if (isUser) return reply('você já está registrado')
+					if (isUser) return reply('você já está registrado corno')
 					if (args.length < 1) return reply(`Parâmetro incorreto \nCommand : ${prefix}daftar nome|idade\nContoh : ${prefix}daftar Toin|18`)
 					var reg = body.slice(8)
 					var jeneng = reg.split("|")[0];
@@ -1418,7 +1418,7 @@ case 'timer':
 					var gh = body.slice(11)
 					var teks1 = gh.split("|")[0];
 					var teks2 = gh.split("|")[1];
-					if (args.length < 1) return reply(`onde está o texto? exemplo ${prefix}logowolf Toin|BOT`)
+					if (args.length < 1) return reply(`onde está o texto? exemplo ${prefix}logowolf Filipe|BOT`)
 					reply(mess.wait)
 					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=wolflogo1&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
