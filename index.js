@@ -257,11 +257,11 @@ async function starts() {
 					Iv: '❌ Link inválido ❌'
 				},
 				only: {
-					group: '[❗] Este comando só pode ser usado em grupos! ❌',
-					ownerG: '[❗] Este comando só pode ser usado pelo grupo proprietário! ❌',
-					ownerB: '[❗] Apenas o Brabo 𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ⁩ pode usar esse comando! ❌',
-					admin: '[❗] Iae membro comum KKK esse comando só pode ser usado por ADMS! ❌',
-					Badmin: '[❗] Para usar esse comando dê ADM ao Bot ❌',
+					group: '[❗] Este comando só pode ser usado em grupos!',
+					ownerG: '[❗] Este comando só pode ser usado pelo grupo proprietário!',
+					ownerB: '[❗] Apenas o Dono 𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ⁩ pode usar esse comando!',
+					admin: '[❗] *Iae membro comum KKK* esse comando só pode ser usado por ADMS!',
+					Badmin: '[❗] Para usar esse comando dê ADM ao Bot',
                                         daftarB: `── 「REGISTRE-SE」 ──\nIae mano \nVocê não está registrado, \n\nComando : ${prefix}daftar nome|idade\nExemplo : ${prefix}daftar Filipe|18`,
 				}
 			}
