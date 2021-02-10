@@ -246,7 +246,7 @@ async function starts() {
 			const isCmd = body.startsWith(prefix)
 
 			mess = {
-				wait: '🐊 Iae Tiu, Virou festa agr? KKK Zueira *(Caso não obtenha tente novamente)* ',
+				wait: '🐊 Iae Tiu, Virou festa agr? Zueira *(Caso não obtenha tente novamente)* ',
 				success: '✔️ Sucesso ✔️',
                                 levelon: '❬ ✔ ❭ *habilitar Level*',
 				leveloff: ' ❬ X ❭  *desabilitar Level*',
@@ -1027,14 +1027,14 @@ case 'timer':
 					if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('A marca-alvo que você quer chutar!')
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 					if (mentioned.length > 1) {
-						teks = 'Sí Fud** KKK, da próxima leia as regras! :\n'
+						teks = 'REMOVIDO COM SUCESSO, da próxima leia as regras! :\n'
 						for (let _ of mentioned) {
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
 						client.groupRemove(from, mentioned)
 					} else {
-						mentions(`Sí Fud** KKK, da próxima leia as regras! : @${mentioned[0].split('@')[0]}`, mentioned, true)
+						mentions(`REMOVIDO COM SUCESSO, da próxima leia as regras! : @${mentioned[0].split('@')[0]}`, mentioned, true)
 						client.groupRemove(from, mentioned)
 					client.sendMessage(mentioned, 'Tomonucu kskst', text)
 					}
