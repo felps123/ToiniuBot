@@ -1027,14 +1027,14 @@ case 'timer':
 					if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('A marca-alvo que você quer chutar!')
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 					if (mentioned.length > 1) {
-						teks = 'REMOVIDO COM SUCESSO, da próxima leia as regras! :\n'
+						teks = 'REMOVIDO COM SUCESSO KKK, da próxima leia as regras! :\n'
 						for (let _ of mentioned) {
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
 						client.groupRemove(from, mentioned)
 					} else {
-						mentions(`REMOVIDO COM SUCESSO, da próxima leia as regras! : @${mentioned[0].split('@')[0]}`, mentioned, true)
+						mentions(`REMOVIDO COM SUCESSO KKK, da próxima leia as regras! : @${mentioned[0].split('@')[0]}`, mentioned, true)
 						client.groupRemove(from, mentioned)
 					client.sendMessage(mentioned, 'Tomonucu kskst', text)
 					}
@@ -1134,7 +1134,7 @@ case 'timer':
 					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 					var nomor = mek.participant
 					const close = {
-					text: `Grupo fechado pelo administrador @${nomor.split("@s.whatsapp.net")[0]}\nagora *apenas administradores* podem enviar mensagens`,
+					text: `Grupo fechado pelo Brabo @${nomor.split("@s.whatsapp.net")[0]}\nagora *apenas administradores* podem enviar mensagens`,
 					contextInfo: { mentionedJid: [nomor] }
 					}
 					client.groupSettingChange (from, GroupSettingChange.messageSend, true);
@@ -1147,7 +1147,7 @@ case 'timer':
 					if (!isGroupAdmins) return reply(mess.only.admin)
 					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 					open = {
-					text: `Grupo aberto pelo administrador @${sender.split("@")[0]}\nagora *todos os participantes* podem enviar mensagens`,
+					text: `Grupo aberto pelo Brabo @${sender.split("@")[0]}\nagora *todos os participantes* podem enviar mensagens`,
 					contextInfo: { mentionedJid: [sender] }
 					}
 					client.groupSettingChange (from, GroupSettingChange.messageSend, false)
