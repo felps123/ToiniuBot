@@ -336,14 +336,17 @@ async function starts() {
  
        /******END OF FUNCTIONS INPUT******/
 			switch(command) {
-				case 'help':
+				case 'help' :
 				case 'menu':
-					client.sendMessage(from, help(pushname, prefix), text)
-					break
-                                /*case 'makermenu':
-                                        hisil = fs.readFileSync('./src/makerimg.jpg')
-                                        client.sendMessage(from, hisil, image, {quoted: mek, caption: makermenu(prefix), text})
-                                        break*/
+			if (!isRegister) return reply(mess.only.daftarB)
+
+                                        const reqXp  = 5000 * (Math.pow(2, getLevelingLevel(sender)) - 1)
+
+			                const uangku = checkATMuser(sender)
+
+                                        await costum(help(pushname, prefix, botName, ownerName, reqXp, uangku), text, tescuk, cr)
+
+                                        break
 case 'timer':
 				if (args[1]=="detik") {var timer = args[0]+"000"
 				} else if (args[1]=="menit") {var timer = args[0]+"0000"
