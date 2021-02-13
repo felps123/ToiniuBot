@@ -1736,11 +1736,14 @@ case 'timer':
                                 case 'neonlogo':
                                         var gh = body.slice(9)
                                         var teks1 = gh.split("|")[0];
-                                        if (args.length < 1) return reply(`onde está o texto hum\nExemplo: ${prefix}neonlogo FilipeBOT`)
+                                        if (args.length < 1) return reply('onde está o texto hum\nExemplo: ${prefix}neonlogo ScreamoCanss')
+                                        if (!isRegister) return reply(mess.only.daftarB)
+                                        if (isLimit(sender)) return reply(ind.limitend(pusname))
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_light&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Eh...'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: 'Aqui está o logotipo...'})
+                                        await limitAdd(sender)
                                         break
                                 case 'neonlogo2':
                                         var gh = body.slice(10)
