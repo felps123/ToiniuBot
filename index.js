@@ -338,7 +338,7 @@ async function starts() {
 			switch(command) {
 				case 'help':
 				case 'menu':
-					client.sendMessage(from, help(prefix), text)
+					client.sendMessage(from, help(pushname, prefix), text)
 					break
                                 /*case 'makermenu':
                                         hisil = fs.readFileSync('./src/makerimg.jpg')
