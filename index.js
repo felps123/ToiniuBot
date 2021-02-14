@@ -1509,7 +1509,7 @@ async function starts() {
                                      * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
                                      * metadados a figurinha!
                                      */
-                                    const webpWithMetadata = addMetadata('Filipe', '55 11 91072 5063', ran, tempWebpFile1);
+                                    const webpWithMetadata = addMetadata('𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ', '+55 (11) 91072-5063', ran, tempWebpFile1);
 
                                     /*
                                      * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
@@ -1561,7 +1561,7 @@ async function starts() {
                                      * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
                                      * metadados a figurinha!
                                      */
-                                    const webpWithMetadata2 = addMetadata('Filipe Original', '+55 (11) 91072-5063', ran, tempWebpFile1);
+                                    const webpWithMetadata2 = addMetadata('𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ', '+55 (11) 91072-5063', ran, tempWebpFile1);
 
                                     /*
                                      * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
