@@ -1528,24 +1528,20 @@ async function starts() {
                 case 'sticker':
                 case 'stickergif':
                 case 'stikergif':
-                    if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-                        const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-                        const media = await client.downloadAndSaveMediaMessage(encmedia)
+                    if (type == 'extendedTextMessage') {
+                        em = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm'));
                         if (!isUser) return reply(mess.only.daftarB)
-                        /*
-                         * Aqui declaramos o arquivo aleatório que usaremos e depois chamamos o sendAsSticker
-                         * para enviá-lo com os metadados desejados.
-                         */
+                        media = await conn.downloadAndSaveMediaMessage(em.message.extendedTextMessage.contextInfo);
                         tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
                         sendAsSticker(media, tempWebpFile);
-                    } else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
-                        const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-                        const media = await client.downloadAndSaveMediaMessage(encmedia)
+                    } else if (type == 'imageMessage') {
                         reply(mess.wait)
-                        /*
-                         * Aqui declaramos o arquivo aleatório que usaremos e depois chamamos o sendAsSticker
-                         * para enviá-lo com os metadados desejados.
-                         */
+                        media = await conn.downloadAndSaveMediaMessage(m);
+                        tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
+                        sendAsSticker(media, tempWebpFile);
+                    } else if (type == 'videoMessage') {
+                        reply(mess.wait);
+                        media = await conn.downloadAndSaveMediaMessage(m);
                         tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
                         sendAsSticker(media, tempWebpFile);
                     }
@@ -2716,3 +2712,4 @@ async function starts() {
     })
 }
 starts()
+
