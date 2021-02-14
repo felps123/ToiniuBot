@@ -1531,17 +1531,17 @@ async function starts() {
                     if (type == 'extendedTextMessage') {
                         em = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm'));
                         if (!isUser) return reply(mess.only.daftarB)
-                        media = await conn.downloadAndSaveMediaMessage(em.message.extendedTextMessage.contextInfo);
+                        media = await client.downloadAndSaveMediaMessage(em.message.extendedTextMessage.contextInfo);
                         tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
                         sendAsSticker(media, tempWebpFile);
                     } else if (type == 'imageMessage') {
                         reply(mess.wait)
-                        media = await conn.downloadAndSaveMediaMessage(m);
+                        media = await client.downloadAndSaveMediaMessage(m);
                         tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
                         sendAsSticker(media, tempWebpFile);
                     } else if (type == 'videoMessage') {
                         reply(mess.wait);
-                        media = await conn.downloadAndSaveMediaMessage(m);
+                        media = await client.downloadAndSaveMediaMessage(m);
                         tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
                         sendAsSticker(media, tempWebpFile);
                     }
