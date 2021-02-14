@@ -421,51 +421,8 @@ async function starts() {
                 })
             }
 
-            /* sendAsSticker - Parâmetros:
-             * Media: arquivo a ser convertido com novos metadados para figurinha
-             * tempFile: arquivo temporário criado logo após a adição de metadados,
-             * ele será automaticamente deletado assim que o sticker for enviado.
-             * --------------------------------------------------------------------
-             * Conversor exif desenvolvido por LuanRT do TheAndroidWorld.
-             * Para mais informações sobre o como o mesmo funciona só entrar em contato 
-             * E-mail: contato@blogdosmanos.dnsabr.com
-             * E-mail Secundário: luanandmaiconchannel@gmail.com
-             */
-            const sendAsSticker = (media, tempFile) => {
-                // Criamos um arquivo temporário pra guardar os metadados.
-                tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
-
-                // Depois convertemos para formato webp com o ffmpeg e a biblioteca libwebp.
-                exec(`ffmpeg -i ${media} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${tempFile}`, (error, stdout, stderr) => {
-                    try {
-                        /* 
-                         * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
-                         * metadados a figurinha!
-                         */
-                        const webpWithMetadata = addMetadata('𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ', '+55 (11) 91072-5063', tempFile, tempWebpFile1);
-
-                        /*
-                         * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
-                         */
-                        setTimeout(async () => {
-                            let buffer = fs.readFileSync(webpWithMetadata);
-                            client.sendMessage(from, buffer, MessageType.sticker, {
-                                quoted: mek
-                            });
-
-                            /*
-                             * Agora que tudo já foi convertido e a figurinha já foi enviada
-                             * apagamos todos os arquivos temporários.
-                             */
-                            fs.unlinkSync(webpWithMetadata);
-                            fs.unlinkSync(tempFile);
-                        }, 600);
-                    } catch (err) {
-                        // Caso algo dê errado né.
-                        console.log(`Erro: ${err}`);
-                    }
-                });
-            }
+            
+            
 
             //function leveling
             if (isGroup && isLevelingOn) {
@@ -1528,22 +1485,110 @@ async function starts() {
                 case 'sticker':
                 case 'stickergif':
                 case 'stikergif':
-                    if (type == 'extendedTextMessage') {
-                        em = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm'));
+                    if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+                        const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+                        const media = await client.downloadAndSaveMediaMessage(encmedia)
                         if (!isUser) return reply(mess.only.daftarB)
-                        media = await client.downloadAndSaveMediaMessage(em.message.extendedTextMessage.contextInfo);
-                        tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
-                        sendAsSticker(media, tempWebpFile);
-                    } else if (type == 'imageMessage') {
+                        ran = getRandom('.webp')
+                        await ffmpeg(`./${media}`)
+                            .input(media)
+                            .on('start', function(cmd) {
+                                console.log(`Started : ${cmd}`)
+                            })
+                            .on('error', function(err) {
+                                console.log(`Error : ${err}`)
+                                fs.unlinkSync(media)
+                                reply(mess.error.stick)
+                            })
+                            .on('end', function() {
+                                console.log('Finish')
+                                tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
+
+                                try {
+                                    /* 
+                                     * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
+                                     * metadados a figurinha!
+                                     */
+                                    const webpWithMetadata = addMetadata('𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ', '+55 (11) 91072-5063', ran, tempWebpFile1);
+
+                                    /*
+                                     * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
+                                     */
+                                    setTimeout(async () => {
+                                        let buffer = fs.readFileSync(webpWithMetadata);
+                                        client.sendMessage(from, buffer, MessageType.sticker, {
+                                            quoted: mek
+                                        });
+
+                                        /*
+                                         * Agora que tudo já foi convertido e a figurinha já foi enviada
+                                         * apagamos todos os arquivos temporários.
+                                         */
+                                        fs.unlinkSync(webpWithMetadata);
+                                        // fs.unlinkSync(tempFile);
+                                    }, 600);
+                                } catch (err) {
+                                    // Caso algo dê errado né.
+                                    console.log(`Erro: ${err}`);
+                                }
+
+                            })
+                            .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                            .toFormat('webp')
+                            .save(ran)
+                    } else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
+                        const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+                        const media = await client.downloadAndSaveMediaMessage(encmedia)
+                        ran = getRandom('.webp')
                         reply(mess.wait)
-                        media = await client.downloadAndSaveMediaMessage(m);
-                        tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
-                        sendAsSticker(media, tempWebpFile);
-                    } else if (type == 'videoMessage') {
-                        reply(mess.wait);
-                        media = await client.downloadAndSaveMediaMessage(m);
-                        tempWebpFile = `${Math.floor(Math.random() * 10000)}.webp`;
-                        sendAsSticker(media, tempWebpFile);
+                        await ffmpeg(`./${media}`)
+                            .inputFormat(media.split('.')[1])
+                            .on('start', function(cmd) {
+                                console.log(`Started : ${cmd}`)
+                            })
+                            .on('error', function(err) {
+                                console.log(`Error : ${err}`)
+                                fs.unlinkSync(media)
+                                tipe = media.endsWith('.mp4') ? 'video' : 'gif'
+                                reply(`❌ Falhou, no momento da conversão ${tipe} para o sticker`)
+                            })
+                            .on('end', function() {
+                                console.log('Finish')
+                                try {
+                                    tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
+
+                                    /* 
+                                     * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
+                                     * metadados a figurinha!
+                                     */
+                                    const webpWithMetadata2 = addMetadata('𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ', '+55 (11) 91072-5063', ran, tempWebpFile1);
+
+                                    /*
+                                     * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
+                                     */
+                                    setTimeout(async () => {
+                                        let buffer = fs.readFileSync(webpWithMetadata2);
+                                        client.sendMessage(from, buffer, MessageType.sticker, {
+                                            quoted: mek
+                                        });
+
+                                        /*
+                                         * Agora que tudo já foi convertido e a figurinha já foi enviada
+                                         * apagamos todos os arquivos temporários.
+                                         */
+                                        fs.unlinkSync(webpWithMetadata2);
+                                        // fs.unlinkSync(tempFile);
+                                    }, 600);
+                                } catch (err) {
+                                    // Caso algo dê errado né.
+                                    console.log(`Erro: ${err}`);
+                                }
+
+                            })
+                            .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                            .toFormat('webp')
+                            .save(ran)
+                        
                     }
                     break
                 case 'animehug':
