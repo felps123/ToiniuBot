@@ -427,7 +427,7 @@ async function starts() {
                      * Ai depois disso chamamos a nossa function addMetadata para adicionar os 
                      * metadados a figurinha!
                      */
-                    const webpWithMetadata = addMetadataBeta(stickerPackname, stickerAuthorName, media, tempWebpFile1);
+                    const webpWithMetadata = addMetadata(stickerPackname, stickerAuthorName, media, tempWebpFile1);
                     console.log(`[INFO] Metadados adicionados com sucesso!\nNovo arquivo webp com dados necessários criado, nome ${webpWithMetadata}`)
                     /*
                      * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
@@ -1534,7 +1534,7 @@ async function starts() {
                                  * Depois da conversão chamamos o sendAsSticker no qual adicionará
                                  * metadatos ao sticker.
                                  */
-                                console.log('[INFO] Gif/video convertido para webp con sucesso!\n Iniciando adição de metadados.');
+                                console.log('[INFO] Gif/video convertido para webp com sucesso!\n Iniciando adição de metadados.');
                                 sendAsSticker(ran);
                             })
                             .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
