@@ -1,6 +1,5 @@
 const menuadmin = (prefix, pushname) => {
- return `Apenas para os mais Brabos.
- 
+ return `
  ◪ *🐊COMANDO DOS ADMINS🐊*
  │
  ├─ ❏ ${prefix}add
