@@ -83,7 +83,7 @@ _______________________________________
   │
   ├─ ❏ ${prefix}send
   ├─ ❏ ${prefix}wame
-  ├─ ❏ ${prefix}virtex
+  ├─ ❏ ${prefix}regras
   ├─ ❏ ${prefix}exe
   ├─ ❏ ${prefix}qrcode
   ├─ ❏ ${prefix}afk
