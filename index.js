@@ -6,7 +6,6 @@ const {
     GroupSettingChange
 } = require('@adiwajshing/baileys')
 
-/******BEGIN OF FILE INPUT******/
 const {
     color,
     bgcolor
@@ -40,9 +39,7 @@ const {
 const {
     recognize
 } = require('./lib/ocr')
-/******END OF FILE INPUT******/
 
-/******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
 const moment = require('moment-timezone')
 const {
@@ -59,18 +56,14 @@ const imgbb = require('imgbb-uploader')
 const lolis = require('lolis.life')
 const loli = new lolis()
 const speed = require('performance-now')
-/******END OF NPM PACKAGE INPUT******/
 
-/******BEGIN OF JSON INPUT******/
 const welkom = JSON.parse(fs.readFileSync('./database/json/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./database/json/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./database/json/simi.json'))
 const user = JSON.parse(fs.readFileSync('./database/json/user.json'))
 const _leveling = JSON.parse(fs.readFileSync('./database/json/leveling.json'))
 const _level = JSON.parse(fs.readFileSync('./database/json/level.json'))
-/******END OF JSON INPUT******/
 
-/******BEGIN OF MENU INPUT******/
 const {
     help
 } = require('./src/help')
@@ -87,18 +80,16 @@ const {
     nsfwmenu
 } = require('./src/nsfwmenu')
 
-/******LOAD OF VCARD INPUT******/
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
     +
     'VERSION:3.0\n' +
     'FN:Filipe🐊\n' // full name
     +
-    'ORG:Owner Bot;\n' // the organization of the contact
+    'ORG:Dono;\n' // the organization of the contact
     +
     'TEL;type=CELL;type=VOICE;waid=5511910725063:+55 (11) 91072-5063\n' // ID do WhatsApp + número de telefone
     +
     'END:VCARD'
-/******END OF VCARD INPUT******/
 
 prefix = '*'
 blocked = []
@@ -200,48 +191,40 @@ function kyun(seconds) {
  */
 
 function addMetadata(packname, author, inputWebpFile, outputWebpFile) {
-    //Nome do pacote, id, e autor
-    const stickerpackid = "com.theandroidworld.bigbywolf xxxxxxxx-xxxx-hayz-dwdf-rxxxxxxxxxxx"
+    /* 
+     * Agora com suporte a simulação de packid (como se o sticker fosse feito por um app externo)
+     * e também suporte a caractères especiais está completamente funcionando.
+     */
+    const stickerpackid = "com.marsvard.stickermakerforwhatsapp.stickercontentprovider 15745273889";
+    const googlelink = "https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp";
+    const applelink = "https://itunes.apple.com/app/sticker-maker-studio/id1443326857";
+
     const json = {
         "sticker-pack-id": stickerpackid,
         "sticker-pack-name": packname,
         "sticker-pack-publisher": author,
-    }
+        "android-app-store-link": googlelink,
+        "ios-app-store-link": applelink
+    };
 
-    // Adiciona metadata ao arquivo exif
-    const littleEndian = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00])
-    const bytes = [0x00, 0x00, 0x16, 0x00, 0x00, 0x00]
+    /*
+     * Depois de declarar os itens do objeto json vamos escrever
+     * seus dados em um arquivo exif.
+     */
 
-    let len = JSON.stringify(json).length
-    let last
+    let exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
+    let jsonBuffer = Buffer.from(JSON.stringify(json), 'utf8');
+    let exif = Buffer.concat([exifAttr, jsonBuffer]);
 
-    if (len > 256) {
-        len = len - 256
-        bytes.unshift(0x01)
-    } else {
-        bytes.unshift(0x00)
-    }
-
-    if (len < 16) {
-        last = len.toString(16)
-        last = "0" + len
-    } else {
-        last = len.toString(16)
-    }
-
-    // Depois salvamos o arquivo no disco do servidor.
-    const buf2 = Buffer.from(last, "hex")
-    const buf3 = Buffer.from(bytes)
-    const buf4 = Buffer.from(JSON.stringify(json))
-
-    const buffer = Buffer.concat([littleEndian, buf2, buf3, buf4])
+    exif.writeUIntLE(jsonBuffer.length, 14, 4);
 
     let name = Math.random().toString(36).substring(7)
 
-    fs.writeFile(`./${name}.exif`, buffer, (err) => {
+    fs.writeFile(`./${name}.exif`, exif, (err) => {
         if (err) {
-            console.log(err)
+            console.log(err);
         } else {
+            // Depois da conversão copiamos os dados do exif para o webp, assim adicionando metadata.
             require('child_process').execSync(`webpmux -set exif ${name}.exif ${inputWebpFile} -o ${outputWebpFile}`);
             fs.unlinkSync(`${name}.exif`);
         }
@@ -254,15 +237,15 @@ async function starts() {
     client.logger.level = 'warn'
     console.log(banner.string)
     client.on('qr', () => {
-        console.log(color('[', 'white'), color('!', 'red'), color(']', 'white'), color(' escanear o codigo qr acima '))
+        console.log(color('[', 'white'), color('!', 'red'), color(']', 'white'), color(' Escanear o código QR com WhatsApp. '))
     })
 
     fs.existsSync('./Nazwa.json') && client.loadAuthInfo('./Nazwa.json')
     client.on('connecting', () => {
-        start('2', 'Connecting...')
+        start('2', 'Conectando aos servidores do WhatsApp...')
     })
     client.on('open', () => {
-        success('2', 'Connected')
+        success('2', 'Conectado!')
     })
     await client.connect({
         timeoutMs: 30 * 1000
@@ -421,8 +404,54 @@ async function starts() {
                 })
             }
 
-            
-            
+            /* sendAsSticker - Parâmetros:
+             * Media: arquivo a ser convertido com novos metadados para figurinha
+             * ele será automaticamente deletado assim que o sticker for enviado.
+             * --------------------------------------------------------------------
+             * Conversor exif desenvolvido por LuanRT do TheAndroidWorld.
+             * Para mais informações sobre o como o mesmo funciona só entrar em contato 
+             * E-mail: contato@blogdosmanos.dnsabr.com
+             * E-mail Secundário: luanandmaiconchannel@gmail.com
+             */
+            const sendAsSticker = (media) => {
+                // Criamos um arquivo temporário pra guardar os metadados.
+                tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
+
+                // Nome do autor e pacote.
+                const stickerPackname = '𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ';
+                const stickerAuthorName = '+55 (11) 91072-5063';
+
+                console.log(`[INFO] Adicionando metadados à ${tempWebpFile1}\nNome do pacote: ${stickerPackname}\nNome do autor: ${stickerAuthorName}`);
+                try {
+                    /* 
+                     * Ai depois disso chamamos a nossa function addMetadata para adicionar os 
+                     * metadados a figurinha!
+                     */
+                    const webpWithMetadata = addMetadataBeta(stickerPackname, stickerAuthorName, media, tempWebpFile1);
+                    console.log(`[INFO] Metadados adicionados com sucesso!\nNovo arquivo webp com dados necessários criado, nome ${webpWithMetadata}`)
+                    /*
+                     * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
+                     */
+                    console.log(`[INFO] Esperando resposta do timer..`)
+                    setTimeout(async () => {
+                        let buffer = fs.readFileSync(webpWithMetadata);
+                        client.sendMessage(from, buffer, MessageType.sticker, {
+                            quoted: mek
+                        });
+
+                        console.log(`[TIMER] Sticker enviado e processado com sucesso.`);
+                        /*
+                         * Agora que tudo já foi convertido e a figurinha já foi enviada
+                         * apagamos todos os arquivos temporários.
+                         */
+                        fs.unlinkSync(webpWithMetadata);
+                        fs.unlinkSync(media);
+                    }, 600);
+                } catch (err) {
+                    // Vai que dá algo de errado né.
+                    console.log(`[ERRO] Ohh não! Parece que deu algo de errado na conversão, logcat:\n ${err}`);
+                }
+            }
 
             //function leveling
             if (isGroup && isLevelingOn) {
@@ -1501,37 +1530,12 @@ async function starts() {
                                 reply(mess.error.stick)
                             })
                             .on('end', function() {
-                                console.log('Finish')
-                                tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
-
-                                try {
-                                    /* 
-                                     * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
-                                     * metadados a figurinha!
-                                     */
-                                    const webpWithMetadata = addMetadata('Filipe Original', '55 11 91072 5063', ran, tempWebpFile1);
-
-                                    /*
-                                     * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
-                                     */
-                                    setTimeout(async () => {
-                                        let buffer = fs.readFileSync(webpWithMetadata);
-                                        client.sendMessage(from, buffer, MessageType.sticker, {
-                                            quoted: mek
-                                        });
-
-                                        /*
-                                         * Agora que tudo já foi convertido e a figurinha já foi enviada
-                                         * apagamos todos os arquivos temporários.
-                                         */
-                                        fs.unlinkSync(webpWithMetadata);
-                                        // fs.unlinkSync(tempFile);
-                                    }, 600);
-                                } catch (err) {
-                                    // Caso algo dê errado né.
-                                    console.log(`Erro: ${err}`);
-                                }
-
+                                /*
+                                 * Depois da conversão chamamos o sendAsSticker no qual adicionará
+                                 * metadatos ao sticker.
+                                 */
+                                console.log('[INFO] Gif/video convertido para webp con sucesso!\n Iniciando adição de metadados.');
+                                sendAsSticker(ran);
                             })
                             .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
                             .toFormat('webp')
@@ -1553,42 +1557,16 @@ async function starts() {
                                 reply(`❌ Falhou, no momento da conversão ${tipe} para o sticker`)
                             })
                             .on('end', function() {
-                                console.log('Finish')
-                                try {
-                                    tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
-
-                                    /* 
-                                     * Ai depois de tudo isso chamamos a nossa function addMetadata para adicionar os 
-                                     * metadados a figurinha!
-                                     */
-                                    const webpWithMetadata2 = addMetadata('Filipe Original', '55 11 91072 5063', ran, tempWebpFile1);
-
-                                    /*
-                                     * Com isso adicionamos um timer de 6 milisegundos para dar tempo de tudo ser processado!
-                                     */
-                                    setTimeout(async () => {
-                                        let buffer = fs.readFileSync(webpWithMetadata2);
-                                        client.sendMessage(from, buffer, MessageType.sticker, {
-                                            quoted: mek
-                                        });
-
-                                        /*
-                                         * Agora que tudo já foi convertido e a figurinha já foi enviada
-                                         * apagamos todos os arquivos temporários.
-                                         */
-                                        fs.unlinkSync(webpWithMetadata2);
-                                        // fs.unlinkSync(tempFile);
-                                    }, 600);
-                                } catch (err) {
-                                    // Caso algo dê errado né.
-                                    console.log(`Erro: ${err}`);
-                                }
-
+                                /*
+                                 * Depois da conversão chamamos o sendAsSticker no qual adicionará
+                                 * metadatos ao sticker.
+                                 */
+                                console.log('[INFO] Imagem convertida para webp con sucesso!\n Iniciando adição de metadados.');
+                                sendAsSticker(ran);
                             })
                             .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
                             .toFormat('webp')
                             .save(ran)
-                        
                     }
                     break
                 case 'animehug':
@@ -2756,4 +2734,4 @@ async function starts() {
         }
     })
 }
-starts()
+starts();
