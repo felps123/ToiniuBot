@@ -418,7 +418,7 @@ async function starts() {
                 tempWebpFile1 = `${Math.floor(Math.random() * 10000)}.webp`;
 
                 // Nome do autor e pacote.
-                const stickerPackname = '𝑭𝒊𝒍𝒊𝒑𝒆🐊ᴼᴿᴵᴳᴵᴺᴬᴸ';
+                const stickerPackname = '𝑭𝒊𝒍𝒊𝒑͢𝒆🐊ᴼ̶ᴿ̶ᴵ̶ᴳ̶ᴵ̶ᴺ̶ᴬ̶ᴸ̶';
                 const stickerAuthorName = '+55 (11) 91072-5063';
 
                 console.log(`[INFO] Adicionando metadados à ${tempWebpFile1}\nNome do pacote: ${stickerPackname}\nNome do autor: ${stickerAuthorName}`);
