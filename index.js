@@ -17,8 +17,8 @@ const {
     negara
 } = require('./src/kodenegara')
 const {
-    virtex
-} = require('./src/virtex')
+    regras
+} = require('./src/regras')
 const {
     wait,
     simih,
@@ -71,8 +71,8 @@ const {
     logomaker
 } = require('./database/menu/logomaker')
 const {
-    toinmenu
-} = require('./src/toinmenu')
+    filipemenu
+} = require('./src/filipemenu')
 const {
     menuadmin
 } = require('./src/menuadmin')
@@ -334,7 +334,7 @@ async function starts() {
             const isCmd = body.startsWith(prefix)
 
             mess = {
-                wait: 'Aguarde... ▬▬▬▬▭ 𝟫𝟢%.                *(caso não obtenha ,tente novamente)* ',
+                wait: 'Aguarde... ▬▬▬▬▭ 𝟫𝟤%.                *(caso não obtenha ,tente novamente)* ',
                 success: '✔️ Sucesso ✔️',
                 levelon: '❬ ✔ ❭ *habilitar Level*',
                 leveloff: ' ❬ X ❭  *desabilitar Level*',
@@ -507,7 +507,7 @@ async function starts() {
                         quoted: mek
                     })
                     break
-                case 'toinmenu':
+                case 'filipemenu':
                     client.sendMessage(from, toinmenu(prefix, sender), text, {
                         quoted: mek
                     })
@@ -522,7 +522,7 @@ async function starts() {
                         quoted: mek
                     })
                     break
-                case 'virtex':
+                case 'regras':
                     client.sendMessage(from, virtex(prefix, sender), text, {
                         quoted: mek
                     })
@@ -532,7 +532,7 @@ async function starts() {
                         quoted: mek
                     })
                     break
-                case 'demote':
+                case 'rabaixar':
                     if (!isGroup) return reply(mess.only.group)
                     if (!isGroupAdmins) return reply(mess.only.admin)
                     if (!isBotGroupAdmins) return reply(mess.only.Badmin)
@@ -541,13 +541,13 @@ async function starts() {
                     if (mentioned.length > 1) {
                         teks = ''
                         for (let _ of mentioned) {
-                            teks += `Pedido recebido, removido da posição de administrador :\n`
+                            teks += `Rebaixado a Membro Comum  :\n`
                             teks += `@_.split('@')[0]`
                         }
                         mentions(teks, mentioned, true)
                         client.groupDemoteAdmin(from, mentioned)
                     } else {
-                        mentions(`Pedido recebido, removido da posição de administrador @${mentioned[0].split('@')[0]}\n*${groupMetadata.subject}*_`, mentioned, true)
+                        mentions(`Rebaixado a Membro Comum @${mentioned[0].split('@')[0]}\n*${groupMetadata.subject}*_`, mentioned, true)
                         client.groupDemoteAdmin(from, mentioned)
                     }
                     break
@@ -584,14 +584,14 @@ async function starts() {
                     if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('A tag alvo que você deseja promover!')
                     mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
                     if (mentioned.length > 1) {
-                        teks = 'Promovido com Sucesso :\n'
+                        teks = 'Promovido a ADM :\n'
                         for (let _ of mentioned) {
                             teks += `@${_.split('@')[0]}\n`
                         }
                         mentions(teks, mentioned, true)
                         client.groupMakeAdmin(from, mentioned)
                     } else {
-                        mentions(`Pedido recebido, adicionando posição como administrador : @${mentioned[0].split('@')[0]}`, mentioned, true)
+                        mentions(`Promovido a ADM : @${mentioned[0].split('@')[0]}`, mentioned, true)
                         client.groupMakeAdmin(from, mentioned)
                     }
                     break
@@ -1388,7 +1388,7 @@ async function starts() {
                     break
                 case 'linkgroup':
                 case 'linkgrup':
-                case 'linkgc':
+                case 'linkgp':
                     client.updatePresence(from, Presence.composing)
                     if (!isGroup) return reply(mess.only.group)
                     if (!isUser) return reply(mess.only.daftarB)
@@ -1602,27 +1602,27 @@ async function starts() {
                         buffer = fs.readFileSync(ran)
                         client.sendMessage(from, buffer, image, {
                             quoted: mek,
-                            caption: '>//<'
+                            caption: 'Sticker convertido em imagem'
                         })
                         fs.unlinkSync(ran)
                     })
                     break
-              case 'emoji':
-					if (args.length < 1) return reply('emojinya mana um?')
-                                        if (!isRegister) return reply(mess.only.daftarB)
-					ranp = getRandom('.png')
-					rano = getRandom('.webp')
-					teks = body.slice(8).trim()
-					anu = await fetchJson(`https://mhankbarbars.tech/api/emoji2png?emoji=${teks}&apikey=${BarBarKey}`, {method: 'get'})
-					if (anu.error) return reply(anu.error)
-					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
-						fs.unlinkSync(ranp)
-						if (err) return reply(mess.error.stick)
-						buffer = fs.readFileSync(rano)
-						nzwa.sendMessage(from, buffer, sticker)
-						fs.unlinkSync(rano)
-					})
-					break
+                case 'emoji':
+                    if (args.length < 1) return reply('emoji mana um?')
+                    if (!isRegister) return reply(mess.only.daftarB)
+                    ranp = getRandom('.png')
+                    rano = getRandom('.webp')
+                    teks = body.slice(8).trim()
+                    anu = await fetchJson(`https://mhankbarbars.tech/api/emoji2png?emoji=${teks}&apikey=${BarBarKey}`, {method: 'get'})
+                    if (anu.error) return reply(anu.error)
+                    exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+                        fs.unlinkSync(ranp)
+                        if (err) return reply(mess.error.stick)
+                        buffer = fs.readFileSync(rano)
+                        nzwa.sendMessage(from, buffer, sticker)
+                        fs.unlinkSync(rano)
+                    })
+                    break
                 case 'tomp3':
                     client.updatePresence(from, Presence.composing)
                     if (!isUser) return reply(mess.only.daftarB)
@@ -1658,20 +1658,26 @@ async function starts() {
                         quoted: mek
                     })
                     break
-case 'play':   
-	          if (!isRegister) return reply(mess.only.daftarB)
-                  if (isLimit(sender)) return reply(ind.limitend(pusname))
-                reply(mess.wait)
-                play = body.slice(5)
-                anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?q=${play}&apikey=apivinz`)
-               if (anu.error) return reply(anu.error)
-                 infomp3 = `*Cancao Encontrada!!!*\nTitulo : ${anu.result.title}\nFonte : ${anu.result.source}\nTamanho : ${anu.result.size}\n\n*ESPERE NOVAMENTE ENVIADO POR FAVOR, NAO ENVIE SPAM BY TIOCAFE*`
-                buffer = await getBuffer(anu.result.thumbnail)
-                lagu = await getBuffer(anu.result.url_audio)
-                nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
-                nzwa.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${anu.title}.mp3`, quoted: mek})
-                await limitAdd(sender)
-                break
+                case 'play':
+                    if (!isUser) return reply(mess.only.daftarB)
+                    reply(mess.wait)
+                    play = body.slice(5)
+                    anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?q=${play}&apikey=apivinz`)
+                    if (anu.error) return reply(anu.error)
+                    infomp3 = `*MÚSICA encontrada!!!*\nTítulo : ${anu.result.title}\nFonte : ${anu.result.source}\nTamanho : ${anu.result.size}\n\n*ESPERE, ENVIANDO🔊🎶🏄🏻‍♂️🔥*`
+                    buffer = await getBuffer(anu.result.thumbnail)
+                    lagu = await getBuffer(anu.result.url_audio)
+                    client.sendMessage(from, buffer, image, {
+                        quoted: mek,
+                        caption: infomp3
+                    })
+                    client.sendMessage(from, lagu, audio, {
+                        mimetype: 'audio/mp4',
+                        filename: `${anu.title}.mp3`,
+                        quoted: mek
+                    })
+                    break
+
                 case 'infocuaca':
                     tels = body.slice(11)
                     anu = await fetchJson(`https://tobz-api.herokuapp.com/api/cuaca?wilayah=${tels}&apikey=BotWeA`, {
@@ -1764,17 +1770,17 @@ case 'play':
                     })
                     break
                 case 'firetext':
-					if (args.length < 1) return reply(mess.blank)
+                    if (args.length < 1) return reply(mess.blank)
                     if (!isRegister) return reply(mess.only.daftarB)
                     if (isLimit(sender)) return reply(ind.limitend(pusname))
-					tels = body.slice(7)
-					if (tels.ength > 10) return reply('O texto é longo, até 9 caracteres')
-					reply(mess.wait)
-					anu = await fetchJson(`https://zeksapi.herokuapp.com/api/tlight?text=${tels}&apikey=vinzapi`, {method: 'get'})
-					buff = await getBuffer(anu.result)
-					nzwa.sendMessage(from, buff, image, {quoted: mek})
+                    tels = body.slice(7)
+                    if (tels.ength > 10) return reply('O texto é longo, até 9 caracteres')
+                    reply(mess.wait)
+                    anu = await fetchJson(`https://zeksapi.herokuapp.com/api/tlight?text=${tels}&apikey=vinzapi`, {method: 'get'})
+                    buff = await getBuffer(anu.result)
+                    nzwa.sendMessage(from, buff, image, {quoted: mek})
                                         await limitAdd(sender)
-					break
+                    break
                 case 'gantengcek':
                     if (isUser) return reply(mess.only.daftarB)
                     ganteng = body.slice(1)
